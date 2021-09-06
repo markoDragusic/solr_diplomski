@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const PageWrapper = styled.div`
 display: block;
 text-align: center;
-height: 100%;
+height: ${props => props.hasContent ? "100%" : "100vh"};
 
 `
 export const Header = styled.div`
@@ -21,6 +21,19 @@ export const Header = styled.div`
   font-size: calc(10px + 2vmin);
   color: white;
 `
+
+export const SearchAll = styled.div`
+display: flex;
+flex-direction: row;
+`
+export const SearchMain = styled.div`
+display: flex;
+flex-direction: column;
+margin-left: 30%;
+max-width: 505px;
+`
+
+
 export const SearchElements = styled.div`
 display: flex;
 flex-direction: column;
@@ -59,6 +72,7 @@ width: 100%;
 `
 
 export const SearchButton = styled(SearchItem)`
+pointer-events: ${props => props.disabled ? 'none' : 'auto'}
 `
 export const SearchResults = styled.div`
 margin-top: 20px;
@@ -66,7 +80,7 @@ color: white;
 `
 export const ContentWrapper = styled.div`
 background-color: red;
-height: 100vh;
+height: 100%;
 `
 
 export const MenuItem = styled.div`
@@ -82,4 +96,39 @@ cursor: pointer;
 
 export const Results = styled.div`
     margin-top: 50px;
+`
+const ResultsHeaderWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 24px;
+`
+
+export const Section = styled.div`
+    width: 15%;
+    max-height: 75px;
+    overflow: hidden;
+    padding: 10px;
+`
+
+const HeaderSection = styled(Section)`
+    font-size: 20px;
+`
+
+export const ResultsHeader = () => {
+    return(
+        <ResultsHeaderWrapper>
+            <HeaderSection/>
+            <HeaderSection>Title</HeaderSection>
+            <HeaderSection>Year Released</HeaderSection>
+            <HeaderSection>Director</HeaderSection>
+            <HeaderSection>Leading Actors</HeaderSection>
+        </ResultsHeaderWrapper>
+        )
+}
+
+export const FilmItem = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 `

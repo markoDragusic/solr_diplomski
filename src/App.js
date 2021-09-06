@@ -12,16 +12,17 @@ import PageBasic from  './components/basic_search/index'
 
 function App() {
   const [page, setPage] = useState('basic')
+  const [hasContent, setHasContent] = useState(false)
 
   return (
-    <PageWrapper className="App">
+    <PageWrapper className="App" hasContent={hasContent}>
       <Header>
-        <MenuItem id="basic" onClick={() => setPage('basic')}>Classic Search</MenuItem>
-        <MenuItem id="faceted" onClick={() => setPage('faceted')}>Faceted Search</MenuItem>
-        <MenuItem id="language" onClick={() => setPage('language')}>Language Analysis</MenuItem>     
+        <MenuItem id="basic" onClick={() => setPage('basic')}>Basic Search</MenuItem>
+        <MenuItem id="faceted" onClick={() => setPage('faceted')}>Advanced Search</MenuItem>
+        <MenuItem id="language" onClick={() => setPage('language')}>Full-Text Search</MenuItem>     
       </Header>
       <ContentWrapper>
-        <PageBasic show={page == 'basic'}/>
+        <PageBasic show={page == 'basic'} setHasContent={setHasContent}/>
     
       </ContentWrapper>
     </PageWrapper>
