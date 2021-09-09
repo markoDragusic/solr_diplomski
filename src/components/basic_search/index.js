@@ -23,42 +23,50 @@ height: 100%;
 `
    const searchByTerm = (setSearchResults, searchValue, start, setTotal, yearFrom, yearTo, setHasContent) => {
     let queryValue = searchValue ?  searchValue : '*:*'
+    let queryValueTerms = queryValue.split(" ")
+    queryValueTerms = queryValueTerms.map((item) => {
+      return item + "~2"
+    })
+    queryValue = "(" + queryValueTerms.join(" OR ") + ")"
+
     let query = "http://localhost:8983/solr/bestFilms/select?q="
     let queryElements = []
+
+
     
     if(searchValue){
-      queryElements.push("default_search_field:\"" + queryValue+"\"")
+      queryElements.push("default_search_field:" + queryValue)
     }
-
     
 
     if(yearFrom && !yearTo){
       queryElements.push("year_released:[" + yearFrom + " TO 2021]" )
-      // query = query + "&fq=year_released:[" + yearFrom + " TO 2021]" 
     }
     else if(!yearFrom && yearTo){
       queryElements.push("year_released:[1900 TO " + yearTo + "]")
-      // query = query + "&fq=year_released:[1900 TO " + yearTo + "]"
     }
     else if(yearFrom && yearTo){
-      queryElements.push("year_released:[" + yearFrom + " TO " + yearTo + "]")
-      // query = query + "fq=year_released:[" + yearFrom + " TO " + yearTo + "]"
+      queryElements.push("year_released:[" + yearFrom + " TO " + yearTo + "]")      
     }
 
+
     query = query + queryElements.join(" AND ")
-    query = start ? query + '&start=' + start : query;
+    query = start ? query + '&start=' + start : query
+    query = query + "&fl=title,director,year_released,leading_actors"
+
+
+    if(!searchValue && (yearFrom || yearTo)){
+     query = query + "&sort=year_released asc"
+    }
 
 
     fetch(query)
       .then(res => res.json())
       .then((result) =>{
-        console.log("Stiglo", result)
         setSearchResults(result.response.docs)
         setTotal(result.response.numFound)
         setHasContent(result.response.numFound > 0)
-        console.log('has content', result.response.numFound > 0)
       })
-  console.log('search by term', searchValue)
 	}
 
 
