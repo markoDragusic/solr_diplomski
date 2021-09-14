@@ -32,7 +32,6 @@ height: 100%;
     let query = "http://localhost:8983/solr/bestFilms/select?q="
     let queryElements = []
 
-
     
     if(searchValue){
       queryElements.push("default_search_field:" + queryValue)
@@ -70,7 +69,7 @@ height: 100%;
 	}
 
 
-function PageBasic(props){
+function PageFaceted(props){
   const [searchValue, setSearchValue] = useState('')
   const [yearFrom, setYearFrom] = useState()
   const [yearTo, setYearTo] = useState()
@@ -132,4 +131,4 @@ function PageBasic(props){
        ) 
 }
 
-export default PageBasic;
+export default PageFaceted;

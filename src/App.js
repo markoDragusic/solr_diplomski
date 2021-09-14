@@ -8,6 +8,7 @@ import {
   MenuItem
 } from './components/basic_search/components'
 import PageBasic from  './components/basic_search/index'
+import PageFaceted from './components/faceted_search/index'
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
       </Header>
       <ContentWrapper>
         <PageBasic show={page == 'basic'} setHasContent={setHasContent}/>
-    
+        <PageFaceted show={page == 'faceted'} setHasContent={setHasContent}/>
       </ContentWrapper>
     </PageWrapper>
   );
