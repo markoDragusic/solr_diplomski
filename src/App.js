@@ -18,9 +18,9 @@ function App() {
   return (
     <PageWrapper className="App" hasContent={hasContent}>
       <Header>
-        <MenuItem id="basic" onClick={() => setPage('basic')}>Basic Search</MenuItem>
-        <MenuItem id="faceted" onClick={() => setPage('faceted')}>Advanced Search</MenuItem>
-        <MenuItem id="language" onClick={() => setPage('language')}>Full-Text Search</MenuItem>     
+        <MenuItem id="basic" active={page == 'basic'} onClick={() => setPage('basic')}>Класична претрага</MenuItem>
+        <MenuItem id="faceted" active={page == 'faceted'} onClick={() => setPage('faceted')}>Фасетирана претрага</MenuItem>
+        <MenuItem id="full-text" active={page == 'full-text'} onClick={() => setPage('full-text')}>Претрага текста</MenuItem>     
       </Header>
       <ContentWrapper>
         <PageBasic show={page == 'basic'} setHasContent={setHasContent}/>

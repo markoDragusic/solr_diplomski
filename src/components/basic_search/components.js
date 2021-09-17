@@ -86,7 +86,7 @@ height: 100%;
 export const MenuItem = styled.div`
 height: 50px;
 width: 250px;
-background-color: blue;
+background-color: ${props => props.active ? 'blue' : 'darkslategray'};
 margin-right: 15px;
 display: flex;
 align-items: center;
