@@ -12,11 +12,13 @@ import {
   ResultsHeader,
   BookHeader,
   BookHighlights,
-  Section,
-  SectionNo
+  SectionTitle,
+  SectionNo,
+  Snippet
   } from './components'
 import Pagination from './pagination'
 import Sidebar from './sidebar'
+import {stringToHTML, getTitle} from './helpers'
 
 export const Wrapper = styled.div`
 display: ${ props => props.show ? 'block' : 'none'};
@@ -24,38 +26,14 @@ background: gray;
 height: 100%;
 `
 
-const Snippet = styled.div`
-  border-bottom: 1px solid black;
-`
-
-    // const formatHighlight = (str) => { 
-    //   var tmp = document.createElement("DIV");
-    //   tmp.innerHTML = str;
-    //   // return tmp.textContent || tmp.innerText || "";
-    //   return tmp;
-    // }
-  
-  var stringToHTML = (str) => {
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(str, 'text/html');
-    console.log('dok rivers', doc.body.innerHTML)
-    return doc.body.innerHTML;
-};
 
     const prepareResults = (rawResults, highlighting) => {
       let prepared = []
       let entries = Object.entries(highlighting)
 
-      console.log('hajlajt', entries)
-
-      // for(let item in entries){
-      
-      // }
-
       entries.forEach( item => {
-        console.log('ajtaaaa textm',  item[1].text)
         let object = {
-          title: item[0],
+          title: getTitle(item[0]),
           first:  item[1].text ? item[1].text[0] : '',
           second:  item[1].text ?  item[1].text[1] : '',
           third:  item[1].text ? item[1].text[2] : ''
@@ -65,7 +43,6 @@ const Snippet = styled.div`
 
       })
 
-console.log('PREP', prepared)
       return prepared;
     }
 
@@ -151,14 +128,18 @@ function PageFaceted(props){
       <>
         <BookHeader key={index}>
           <SectionNo>{(currentPage - 1) * 10 + index + 1}.</SectionNo> 
-          <Section>{item.title}</Section>       
+          <SectionTitle>{item.title}</SectionTitle>       
         </BookHeader>
         <BookHighlights>
          <Snippet>
-<div dangerouslySetInnerHTML={{__html: item.first}} />
+           <div dangerouslySetInnerHTML={{__html: item.first}} />
          </Snippet>
-         <Snippet>{item.second}</Snippet>
-         <Snippet>{item.third}</Snippet>
+         <Snippet>
+           <div dangerouslySetInnerHTML={{__html: item.second}} />
+        </Snippet>
+         <Snippet>
+           <div dangerouslySetInnerHTML={{__html: item.third}} />
+         </Snippet>
         </BookHighlights>
       </>
       ) }

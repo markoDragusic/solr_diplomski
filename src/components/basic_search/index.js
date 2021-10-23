@@ -25,7 +25,7 @@ height: 100%;
     let queryValue = searchValue ?  searchValue : '*:*'
     let queryValueTerms = queryValue.split(" ")
     queryValueTerms = queryValueTerms.map((item) => {
-      return item + "~2"
+      return "(" + item + "~2)" 
     })
     queryValue = "(" + queryValueTerms.join(" OR ") + ")"
 
@@ -51,7 +51,7 @@ height: 100%;
 
     query = query + queryElements.join(" AND ")
     query = start ? query + '&start=' + start : query
-    query = query + "&fl=title,director,year_released,leading_actors"
+    query = query + "&fl=title,director,year_released,leading_actors,description"
 
 
     if(!searchValue && (yearFrom || yearTo)){
@@ -101,7 +101,7 @@ function PageFaceted(props){
       <SearchMain>
         <SearchElements>
           <SearchInputGroup>
-            <SearchLabel>Please enter the search term:</SearchLabel>
+            <SearchLabel>Појам за претрагу:</SearchLabel>
             <SearchInput value={searchValue} onChange = {e => setSearchValue(e.target.value)}></SearchInput>
               <SearchButton 
                 disabled={!searchValue && !(yearFrom || yearTo)}
@@ -109,7 +109,7 @@ function PageFaceted(props){
                 searchByTerm(setSearchResults, searchValue, 0, setTotal, yearFrom, yearTo, setHasContent);
                 setFromBar(searchValue);
                 setCurrentPage(1)
-              }}><button>Search</button></SearchButton>  
+              }}>Претрага</SearchButton>  
           </SearchInputGroup>
         </SearchElements>   
       </SearchMain>    
@@ -121,6 +121,7 @@ function PageFaceted(props){
         <FilmItem key={item.id}>
           <Section>{(currentPage - 1) * 10 + index + 1}.</Section> 
           <Section>{item.title}</Section>
+          <Section>{item.description}</Section>
           <Section>({item.year_released})</Section> 
           <Section> {item.director}</Section>
           <Section>{item.leading_actors}</Section>

@@ -8,10 +8,6 @@ height: ${props => props.hasContent ? "100%" : "100vh"};
 
 `
 export const Header = styled.div`
-// display: flex;
-// position: fixed;
-// top: 0;
-// left: 0;
  background-color: #282c34;
   min-height: 10vh;
   display: flex;
@@ -29,7 +25,7 @@ flex-direction: row;
 export const SearchMain = styled.div`
 display: flex;
 flex-direction: column;
-margin-left: 30%;
+margin-left: 25%;
 max-width: 505px;
 `
 
@@ -38,9 +34,8 @@ export const SearchElements = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
-// justify-content: center;
 padding-top: 100px;
-// margin-left: 28%;
+width: 550px;
 `
 
 const SearchItem = styled.div`
@@ -50,13 +45,14 @@ export const SearchLabel = styled(SearchItem)`
 background: gray;
 color: black;
 font-size: 14px;
+width: 100%;
+text-align: right;
 `
 export const SearchInputGroup = styled.div`
 display: flex;
 flex-direction: row;
 align-items: center;
-// padding-top: 100px;
-// margin-left: 28%;
+width: 100%;
 `
 
 export const SearchInputWrapper = styled(SearchItem)`
@@ -69,10 +65,13 @@ font-size: 18px;
 export const SearchInput = styled.input`
 font-size: 18px;
 width: 100%;
+margin-right: 10px;
 `
 
-export const SearchButton = styled(SearchItem)`
-pointer-events: ${props => props.disabled ? 'none' : 'auto'}
+export const SearchButton = styled.button`
+height: 25px;
+font-size: 15px;
+pointer-events: ${props => props.disabled ? 'none' : 'pointer'}
 `
 export const SearchResults = styled.div`
 margin-top: 20px;
@@ -95,18 +94,19 @@ cursor: pointer;
 `
 
 export const Results = styled.div`
-    margin-top: 50px;
+    margin-top: 75px;
 `
 const ResultsHeaderWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 24px;
+    margin-top: 35px;
+    margin-bottom: 35px;
 `
 
 export const Section = styled.div`
     width: 15%;
-    max-height: 75px;
+    // max-height: 75px;
     overflow: hidden;
     padding: 10px;
 `
@@ -119,10 +119,11 @@ export const ResultsHeader = () => {
     return(
         <ResultsHeaderWrapper>
             <HeaderSection/>
-            <HeaderSection>Title</HeaderSection>
-            <HeaderSection>Year Released</HeaderSection>
-            <HeaderSection>Director</HeaderSection>
-            <HeaderSection>Leading Actors</HeaderSection>
+            <HeaderSection>Наслов</HeaderSection>
+            <HeaderSection>Опис</HeaderSection>
+            <HeaderSection>Година</HeaderSection>
+            <HeaderSection>Режисер</HeaderSection>
+            <HeaderSection>Главне улоге</HeaderSection>
         </ResultsHeaderWrapper>
         )
 }
@@ -131,4 +132,5 @@ export const FilmItem = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 10px;
 `

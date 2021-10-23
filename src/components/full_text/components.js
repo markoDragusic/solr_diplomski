@@ -104,17 +104,20 @@ justify-content: space-between;
 margin-bottom: 24px;
 `
 
-export const SectionNo = styled.div`
-width: 15%;
+export const Section = styled.div`
 max-height: 75px;
 overflow: hidden;
 padding: 10px;
 `
 
-export const Section = styled.div`
-max-height: 75px;
-overflow: hidden;
-padding: 10px;
+export const SectionNo = styled(Section)`
+width: 15%;
+padding-right: 0;
+`
+
+
+export const SectionTitle = styled(Section)`
+padding-left: 0px;
 `
 
 const HeaderSection = styled(Section)`
@@ -136,8 +139,18 @@ export const ResultsHeader = () => {
 export const BookHeader = styled.div`
 display: flex;
 flex-direction: row;
+color: maroon;
+font-size: 18px;
+font-weight: 700;
 `
 
 export const BookHighlights = styled.div`
 margin-left: 15%;
+margin-bottom: 24px;
+`
+
+export const Snippet = styled.div`
+  border-bottom: 1px solid black;
+  padding-top: 15px;
+  padding-bottom: 15px;
 `
