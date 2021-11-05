@@ -129,9 +129,21 @@ function PageBasic(props){
   }, [currentPage])
 
 
-
   return(
 	<Wrapper show={props.show}>
+    <SearchElements>
+      <SearchInputGroup>
+        <SearchLabel>Појам за претрагу:</SearchLabel>
+        <SearchInput value={searchValue} onChange = {e => setSearchValue(e.target.value)}></SearchInput>
+          <SearchButton 
+            disabled={!searchValue && !(yearFrom || yearTo)}
+            onClick={() => {
+            searchByTerm(setSearchResults,setFacetCounts, searchValue, 0, setTotal, yearFrom, yearTo, engine, setHasContent);
+            setFromBar(searchValue);
+            setCurrentPage(1)
+          }}>Претрага</SearchButton>  
+      </SearchInputGroup>
+    </SearchElements>   
     <Content> 
        <Sidebar yearFrom={yearFrom} 
         setYearFrom={setYearFrom} 
@@ -141,19 +153,7 @@ function PageBasic(props){
         facetCounts={facetCounts}
        />
        <SearchMain>
-              <SearchElements>
-                <SearchInputGroup>
-                  <SearchLabel>Please enter the search term:</SearchLabel>
-                  <SearchInput value={searchValue} onChange = {e => setSearchValue(e.target.value)}></SearchInput>
-                    <SearchButton 
-                      disabled={!searchValue && !(yearFrom || yearTo)}
-                      onClick={() => {
-                      searchByTerm(setSearchResults,setFacetCounts, searchValue, 0, setTotal, yearFrom, yearTo, engine, setHasContent);
-                      setFromBar(searchValue);
-                      setCurrentPage(1)
-                    }}><button>Search</button></SearchButton>  
-                </SearchInputGroup>
-              </SearchElements>   
+              
             <Results>
               <ResultsHeader/>
               <ResultItems> 

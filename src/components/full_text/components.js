@@ -50,13 +50,14 @@ export const SearchLabel = styled(SearchItem)`
 background: gray;
 color: black;
 font-size: 14px;
+width: 100%;
+text-align: right;
 `
 export const SearchInputGroup = styled.div`
 display: flex;
 flex-direction: row;
 align-items: center;
-// padding-top: 100px;
-// margin-left: 28%;
+width: 550px;
 `
 
 export const SearchInputWrapper = styled(SearchItem)`
@@ -69,10 +70,13 @@ font-size: 18px;
 export const SearchInput = styled.input`
 font-size: 18px;
 width: 100%;
+margin-right: 10px;
 `
 
-export const SearchButton = styled(SearchItem)`
-pointer-events: ${props => props.disabled ? 'none' : 'auto'}
+export const SearchButton = styled.button`
+height: 25px;
+font-size: 15px;
+pointer-events: ${props => props.disabled ? 'none' : 'pointer'}
 `
 export const SearchResults = styled.div`
 margin-top: 20px;

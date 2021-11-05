@@ -54,7 +54,7 @@ height: 100%;
     // })
     queryValue = "(" + queryValueTerms.join(" OR ") + ")"
 
-    let query = "http://localhost:8983/solr/richTextSearch/select?q="
+    let query = "http://localhost:8983/solr/richText/select?q="
     let queryElements = []
 
     
@@ -110,7 +110,7 @@ function PageFaceted(props){
       <SearchMain>
         <SearchElements>
           <SearchInputGroup>
-            <SearchLabel>Please enter the search term:</SearchLabel>
+            <SearchLabel>Појам за претрагу:</SearchLabel>
             <SearchInput value={searchValue} onChange = {e => setSearchValue(e.target.value)}></SearchInput>
               <SearchButton 
                 disabled={!searchValue && !(yearFrom || yearTo)}
@@ -118,7 +118,7 @@ function PageFaceted(props){
                 searchByTerm(setSearchResults, searchValue, 0, setTotal, setHasContent);
                 setFromBar(searchValue);
                 setCurrentPage(1)
-              }}><button>Search</button></SearchButton>  
+              }}>Претрага</SearchButton>  
           </SearchInputGroup>
         </SearchElements>   
       </SearchMain>    

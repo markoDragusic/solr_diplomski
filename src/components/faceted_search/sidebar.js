@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const SidebarWrapper = styled.div`
-padding-top: 200px;
+padding-top: 70px;
 display: flex;
 flex-direction: column;
 align-items: flex-start;
@@ -10,13 +10,14 @@ margin-left: 50px;
 `
 
 const Years = styled.div`
-width: 60%;
+width: 70%;
+margin-bottom: 50px;
 `
 const Year = styled.div`
 margin-bottom: 24px;
 display: flex;
 flex-direction: row;
-justify-content: space-between;
+justify-content: space-around;
 `
 
 const Facets = styled.div`
@@ -34,6 +35,10 @@ display: flex;
 align-items: center;
 `
 
+const ClearYears = styled.button`
+font-size: 15px;
+`
+
 const engineString = (engine) => {
 	let parts = engine.split(" ")
 
@@ -41,7 +46,6 @@ const engineString = (engine) => {
 }
 
 const Sidebar = (props) => {
-	console.log('sajdbar')
 	const setYearFrom = props.setYearFrom
 	const setYearTo = props.setYearTo
 	const setEngine = props.setEngine
@@ -89,9 +93,14 @@ const Sidebar = (props) => {
 			  enginesLocal.splice(index, 1);
 			}
 		}
-		console.log('enginessss local', enginesLocal)
 		setEngine(enginesLocal)
 	}
+
+	const resetYears = () => {
+		setYearFrom(null)
+		setYearTo(null)
+	}
+
 
 	let selectedOptionId = 0
 
@@ -100,7 +109,7 @@ const Sidebar = (props) => {
 	<SidebarWrapper>
 		<Years>
 			<Year> 
-				<label>From</label>
+				<label>Од</label>
 				<select name="select" onChange={e => selectFrom(e)}>
 		  			{years.map(function(year, index) {
 		  			  if(index == 0){
@@ -111,7 +120,7 @@ const Sidebar = (props) => {
 				</select>
 			</Year>
 			<Year> 
-				<label>To</label>
+				<label>До</label>
 				<select name="select" onChange={e => selectTo(e)}>
 		  			{years.map(function(year, index) { 
 		  				if(index == 0){
@@ -121,6 +130,9 @@ const Sidebar = (props) => {
 		  			})}
 				</select>
 			</Year>
+			<ClearYears onClick={resetYears}>
+			Ресетуј године
+			</ClearYears>
 		</Years>
 		<Facets>
 			<FacetByEngine>
