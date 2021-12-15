@@ -152,22 +152,21 @@ function PageBasic(props){
         engine={engine}
         facetCounts={facetCounts}
        />
-       <SearchMain>
-              
-            <Results>
-              <ResultsHeader/>
-              <ResultItems> 
-                   {searchResults.map((item, index) => 
-                <FilmItem key={item.id}>
-                  <Section>{(currentPage - 1) * 10 + index + 1}.</Section> 
-                  <Section>{item.name}</Section>
-                  <Section>({item.year})</Section> 
-                  <Section>{item.km_driven}</Section>
-                  <Section>{item.fuel}</Section>
-                  <Section>{item.engine}</Section>
-                  <Section>{item.seats}</Section>
-                </FilmItem>)}
-              </ResultItems>             
+       <SearchMain>              
+          <Results>
+            <ResultsHeader/>
+            <ResultItems> 
+                 {searchResults.map((item, index) => 
+              <FilmItem key={item.id}>
+                <Section>{(currentPage - 1) * 10 + index + 1}.</Section> 
+                <Section>{item.name}</Section>
+                <Section>({item.year})</Section> 
+                <Section>{item.km_driven}</Section>
+                <Section>{item.fuel}</Section>
+                <Section>{item.engine}</Section>
+                <Section>{item.seats}</Section>
+              </FilmItem>)}
+            </ResultItems>             
           </Results>  
         </SearchMain>    
     </Content>   

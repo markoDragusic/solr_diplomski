@@ -18,6 +18,11 @@ export const Header = styled.div`
   color: white;
 `
 
+export const Content = styled.div`
+display: flex;
+flex-direction: row;
+`
+
 export const SearchAll = styled.div`
 display: flex;
 flex-direction: row;
@@ -94,7 +99,9 @@ cursor: pointer;
 `
 
 export const Results = styled.div`
-    margin-top: 75px;
+    margin-top: 20px;
+    padding-left: 50px;
+    width: 100%;
 `
 const ResultsHeaderWrapper = styled.div`
     display: flex;
@@ -105,7 +112,7 @@ const ResultsHeaderWrapper = styled.div`
 `
 
 export const Section = styled.div`
-    width: 15%;
+    width: ${props => props.width ? props.width : '15%'};
     // max-height: 75px;
     overflow: hidden;
     padding: 10px;
@@ -118,7 +125,7 @@ const HeaderSection = styled(Section)`
 export const ResultsHeader = () => {
     return(
         <ResultsHeaderWrapper>
-            <HeaderSection/>
+            <HeaderSection width={'1%'}/>
             <HeaderSection>Наслов</HeaderSection>
             <HeaderSection>Опис</HeaderSection>
             <HeaderSection>Година</HeaderSection>

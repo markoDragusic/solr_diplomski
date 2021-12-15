@@ -11,22 +11,57 @@ import {
   Results,
   ResultsHeader,
   FilmItem,
-  Section
+  Section,
+  Content
   } from './components'
 import Pagination from './pagination'
-import Sidebar from './sidebar'
+import Sidebar, {SidebarAdvanced} from './sidebar'
 
 export const Wrapper = styled.div`
 display: ${ props => props.show ? 'block' : 'none'};
 background: gray;
 height: 100%;
 `
-   const searchByTerm = (setSearchResults, searchValue, start, setTotal, yearFrom, yearTo, setHasContent) => {
+const searchByTerm = (
+    setSearchResults, 
+    searchValue, 
+    start, 
+    setTotal, 
+    yearFrom, 
+    yearTo, 
+    setHasContent, 
+    isFuzzy=false,
+    isStemmed=false,
+    synonyms=false) => {
     let queryValue = searchValue ?  searchValue : '*:*'
     let queryValueTerms = queryValue.split(" ")
-    queryValueTerms = queryValueTerms.map((item) => {
-      return "(" + item + "~2)" 
-    })
+
+
+    if(isFuzzy){
+      queryValueTerms = queryValueTerms.map((item) => {
+        let returnString = "(" + item
+console.log('ajtem length', typeof item.length, 0 < item.length < 3)
+
+        if(item.length < 3) {
+          console.log(1111)
+          returnString += ")"
+        }
+        else if(3 <= item.length < 6) {
+                    console.log(2222)
+
+          returnString += "~1)"
+        }
+        else {
+                    console.log(3333)
+
+          returnString += "~2)"
+        }
+        console.log('return string', item, item.length, returnString)
+      return returnString
+      })
+    }
+  
+  
     queryValue = "(" + queryValueTerms.join(" OR ") + ")"
 
     let query = "http://localhost:8983/solr/bestFilms/select?q="
@@ -78,6 +113,9 @@ function PageFaceted(props){
   const [total, setTotal] = useState(0)
   const [initial, setInitial] = useState(true)
   const [fromBar, setFromBar] = useState(false)
+  const [isFuzzy, setIsFuzzy] = useState(false)
+  const [isStemmed, setIsStemmed] = useState(false)
+  const [synonyms, setSynonyms] = useState(false)
 
   let setHasContent = props.setHasContent
 
@@ -86,13 +124,22 @@ function PageFaceted(props){
        let start = (currentPage - 1) * 10;
 
     if (!initial){
-          searchByTerm(setSearchResults, searchValue, start, setTotal, yearFrom, yearTo, setHasContent)
+          searchByTerm(
+            setSearchResults, 
+            searchValue,
+            start, 
+            setTotal, 
+            yearFrom, 
+            yearTo, 
+            setHasContent, 
+            isFuzzy,
+            isStemmed,
+            synonyms)
         }
     setInitial(false)
   } 
   setFromBar(false)  
   }, [currentPage])
-
 
 
   return(
@@ -106,7 +153,17 @@ function PageFaceted(props){
               <SearchButton 
                 disabled={!searchValue && !(yearFrom || yearTo)}
                 onClick={() => {
-                searchByTerm(setSearchResults, searchValue, 0, setTotal, yearFrom, yearTo, setHasContent);
+                searchByTerm(
+                  setSearchResults,
+                  searchValue,
+                  0, 
+                  setTotal, 
+                  yearFrom, 
+                  yearTo, 
+                  setHasContent, 
+                  isFuzzy,
+                  isStemmed,
+                  synonyms);
                 setFromBar(searchValue);
                 setCurrentPage(1)
               }}>Претрага</SearchButton>  
@@ -115,18 +172,22 @@ function PageFaceted(props){
       </SearchMain>    
       <Sidebar yearFrom={yearFrom} setYearFrom={setYearFrom} yearTo={yearTo} setYearTo={setYearTo}/>
     </SearchAll> 
-    <Results>
+    <Content>
+      <SidebarAdvanced isFuzzy={isFuzzy} setIsFuzzy={setIsFuzzy} isStemmed={isStemmed} setIsStemmed={setIsStemmed}/>
+      <Results>
       <ResultsHeader/>
       {searchResults.map((item, index) => 
         <FilmItem key={item.id}>
-          <Section>{(currentPage - 1) * 10 + index + 1}.</Section> 
+          <Section width={'1%'}>{(currentPage - 1) * 10 + index + 1}.</Section> 
           <Section>{item.title}</Section>
           <Section>{item.description}</Section>
-          <Section>({item.year_released})</Section> 
+          <Section>{item.year_released}.</Section> 
           <Section> {item.director}</Section>
           <Section>{item.leading_actors}</Section>
         </FilmItem>)}
     </Results>  
+    </Content>
+    
    <Pagination currentPage={currentPage} goToPage={setCurrentPage} total={total}/>
 	</Wrapper>		
        ) 

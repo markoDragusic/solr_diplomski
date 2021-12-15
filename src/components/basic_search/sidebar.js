@@ -94,6 +94,74 @@ const Sidebar = (props) => {
 	</SidebarWrapper>
 	)
 }
+
+const FullCheckboxWrapper = styled.div`
+display: flex;
+flex-direction: row;
+margin-bottom: 10px;
+width: 90%;
+display: flex;
+justify-content: space-between;
+`
+
+const CheckboxLabel = styled.label``
+
+const Checkbox = styled.div``
+
+const setNewBool = (newVal, setVal) => {
+	console.log('test funkccc nesto', newVal)
+	setVal(newVal)
+}
+
+const FullCheckbox = ({label, val, setVal}) => {
+	return(
+	<FullCheckboxWrapper>
+			<CheckboxLabel>{label}</CheckboxLabel>
+			<Checkbox> 
+				<input type="checkbox" 
+							key={label} 
+							id={label} 
+							name={label} 
+							value={val}
+							onChange={() => setNewBool(!val, setVal)
+								} />
+			</Checkbox>
+		
+	</FullCheckboxWrapper>
+		)
+
+}
+
+
+const SidebarAdvancedWrapper = styled.div`
+padding-top: 70px;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+width: 20%;
+margin-left: 25px;
+`
+
+const AdvancedTitle = styled.div`
+text-align: center;
+font-size: 20px;
+margin-bottom: 25px;
+`
+
+export const SidebarAdvanced = (props) => {
+	const isFuzzy = props.isFuzzy
+	const setIsFuzzy = props.setIsFuzzy
+	const isStemmed = props.isStemmed
+	const setIsStemmed = props.setIsStemmed
+
+return (
+	<SidebarAdvancedWrapper>
+		<AdvancedTitle>Напредна претрага</AdvancedTitle>
+		<FullCheckbox label="Fuzzy претрага" val={isFuzzy} setVal={setIsFuzzy}/>
+		<FullCheckbox label="Корјеновање ријечи" val={isFuzzy} setVal={setIsStemmed}/>
+		
+	</SidebarAdvancedWrapper>)
+}
 	
 
 export default Sidebar
