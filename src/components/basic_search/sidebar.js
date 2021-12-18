@@ -158,7 +158,7 @@ return (
 	<SidebarAdvancedWrapper>
 		<AdvancedTitle>Напредна претрага</AdvancedTitle>
 		<FullCheckbox label="Fuzzy претрага" val={isFuzzy} setVal={setIsFuzzy}/>
-		<FullCheckbox label="Корјеновање ријечи" val={isFuzzy} setVal={setIsStemmed}/>
+		<FullCheckbox label="Корјеновање ријечи" val={isStemmed} setVal={setIsStemmed}/>
 		
 	</SidebarAdvancedWrapper>)
 }

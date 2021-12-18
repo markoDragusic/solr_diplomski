@@ -32,7 +32,8 @@ const searchByTerm = (
     setHasContent, 
     isFuzzy=false,
     isStemmed=false,
-    synonyms=false) => {
+    synonyms=false,
+    searchField) => {
     let queryValue = searchValue ?  searchValue : '*:*'
     let queryValueTerms = queryValue.split(" ")
 
@@ -46,7 +47,7 @@ console.log('ajtem length', typeof item.length, 0 < item.length < 3)
           console.log(1111)
           returnString += ")"
         }
-        else if(3 <= item.length < 6) {
+        else if(item.length < 6) {
                     console.log(2222)
 
           returnString += "~1)"
@@ -69,7 +70,7 @@ console.log('ajtem length', typeof item.length, 0 < item.length < 3)
 
     
     if(searchValue){
-      queryElements.push("default_search_field:" + queryValue)
+      queryElements.push(searchField+":" + queryValue)
     }
     
 
@@ -116,6 +117,7 @@ function PageFaceted(props){
   const [isFuzzy, setIsFuzzy] = useState(false)
   const [isStemmed, setIsStemmed] = useState(false)
   const [synonyms, setSynonyms] = useState(false)
+  const [searchField, setSearchField] = useState('default_search_field')
 
   let setHasContent = props.setHasContent
 
@@ -134,12 +136,20 @@ function PageFaceted(props){
             setHasContent, 
             isFuzzy,
             isStemmed,
-            synonyms)
+            synonyms,
+            searchField
+            )
         }
     setInitial(false)
   } 
   setFromBar(false)  
   }, [currentPage])
+
+  useEffect(() => {
+    if(isStemmed || synonyms){
+      setSearchField('search_field_syn_stem')
+    }
+  }, [isStemmed, synonyms])
 
 
   return(
@@ -163,7 +173,8 @@ function PageFaceted(props){
                   setHasContent, 
                   isFuzzy,
                   isStemmed,
-                  synonyms);
+                  synonyms,
+                  searchField);
                 setFromBar(searchValue);
                 setCurrentPage(1)
               }}>Претрага</SearchButton>  
